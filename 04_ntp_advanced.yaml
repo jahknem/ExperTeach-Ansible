@@ -1,1 +1,27 @@
 ---
+- hosts: db
+  become: true
+  tasks:
+    - name: Install NTP
+      apt:
+        name: ntp
+        state: present
+      notify: ntp restart
+      register: ntp_stat
+      when: ansible_distribution == "Debian"
+    - name: Change the ntp.conf configuration
+      lineinfile:
+        path: /etc/ntp.conf
+        insertafter: EOF
+        line: 'server de.pool.ntp.org iburst'
+      notify: ntp restart
+      when: not ntp_stat.skipped
+    - name: Skip-Hinweis
+      debug:
+        msg: "Der Task 1 wurde übersprungen"
+      when: ntp_stat is skipped
+  handlers:
+    - name: ntp restart
+      service:
+        name: ntp
+        state: restarted
