@@ -1,0 +1,8 @@
+---
+plugin: netbox
+api_endpoint: https://demo.netbox.dev/
+token: 3cb0ab1322f0bc06fa80bc64883a978be5c69cc1
+group_by:
+  - device_roles
+device_query_filters:
+  - has_primary_ip: true

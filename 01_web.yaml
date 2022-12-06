@@ -1,0 +1,12 @@
+---
+- hosts: web
+  become: true
+  tasks:
+    - name: Installing Webserver
+      apt:
+        name: lighttpd
+        state: present
+    - name: Kopiere Index.html
+      copy:
+        src: ~/index.html
+        dest: /var/www/html/index.html

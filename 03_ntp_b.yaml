@@ -1,0 +1,21 @@
+---
+- hosts: db
+  # debugger: always
+  become: true
+  tasks:
+    - name: Install NTP
+      apt:
+        name: ntp
+        state: present
+      notify: ntp restart
+    - name: Change the config ntp.conf
+      lineinfile:
+        path: /etc/ntp.conf
+        insertafter: EOF
+        line: 'server de.pool.ntp.org iburst'
+      notify: ntp restart
+  handlers:
+  - name: ntp restart
+    service:
+      name: ntp
+      state: restarted

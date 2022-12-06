@@ -1,0 +1,16 @@
+---
+- hosts: web
+  debugger: always
+  become: true
+  tasks:
+    - name: Install Webserver
+      apt:
+        name: lighttpd
+        state: present
+    - name: Copy Files
+      copy:
+        src: "{{ item }}"
+        dest: /var/www/html
+      loop:
+        - "~/datei_1.html"
+        - "~/datei_2.html"
