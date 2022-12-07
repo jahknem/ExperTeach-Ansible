@@ -1,0 +1,36 @@
+---
+- name: Installing Nginx Server
+  become: true
+  apt:
+    name: nginx
+    state: present
+    update_cache: true
+  notify:
+    - Start nginx
+- name: Upload custom nginx conf
+  become: true
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - Restart nginx
+- name: Upload custom index
+  become: true
+  copy:
+    src: index.php
+    dest: "/var/www/html/"
+    mode: 0644
+  register: php
+  ignore_errors: true
+- name: Delete index.html
+  become: true
+  file:
+    dest: /var/www/html/index.nginx-debian.html
+    state: absent
+  when: php is succeeded
+- name: Emergency index.html
+  become: true
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  when: php is failed

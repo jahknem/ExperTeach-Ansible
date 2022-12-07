@@ -1,0 +1,24 @@
+---
+- name: Set mysql root password
+  mysql_user:
+    name: "{{ mysql_root }}"
+    password: "{{ mysql_root_password }}"
+  when: mysql.changed
+
+- name: Create project database
+  mysql_db:
+    name: "{{ database }}"
+    login_user: "{{ mysql_root }}"
+    login_password: "{{ mysql_root_password }}"
+    login_host: "{{ mysql_host }}"
+    state: present
+
+- name: Create project database user
+  mysql_user:
+    name: "{{ user }}"
+    password: "{{ db_password }}"
+    priv: "{{ database }}.*:ALL"
+    state: present
+    login_password: "{{ mysql_root_password }}"
+    login_user: root
+    append_privs: true

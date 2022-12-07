@@ -1,0 +1,25 @@
+---
+- hosts: db
+  become: true
+  vars:
+    ntp_server:
+      - server de.pool.ntp.org iburst
+      - server europe.pool.ntp.org iburst
+  tasks:
+    - name: Install NTP
+      apt:
+        name: ntp
+        state: present
+      notify: ntp restart
+    - name: Change the config ntp.cong
+      lineinfile:
+        path: /etc/ntp.conf
+        insertafter: EOF
+        line: '{{ item }}'
+      loop: '{{ ntp_server }}'
+      notify: ntp restart
+  handlers:
+  - name: ntp restart
+    service:
+      name: ntp
+      state: restarted

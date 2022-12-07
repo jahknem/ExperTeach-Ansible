@@ -1,0 +1,19 @@
+---
+- name: install mysql database server
+  apt:
+    name: "{{ mysql_packages }}"
+    state: present
+    update_cache: yes
+  register: mysql
+- name: copy my.cnf
+  template:
+    src: my.cnf
+    dest: /root/.my.cnf
+    owner: root
+    mode: 0600
+  register: mycnf
+- name: restart mysql
+  service:
+    name: "{{ mysql_service}}"
+    state: restarted
+  when: mysql.changed or mycnf.changed

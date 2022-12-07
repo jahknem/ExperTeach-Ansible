@@ -1,0 +1,5 @@
+---
+- include_vars: "vars/mysql_pw.yaml"
+- include_vars: "vars/mysql_vars.yaml"
+- include: "mysql_install.yaml"
+- include: "mysql_config.yaml"

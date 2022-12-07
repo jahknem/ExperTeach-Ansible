@@ -1,0 +1,19 @@
+---
+- hosts: web
+  become: true
+  vars:
+    ntp_srv: "ntp.pool.org"
+  tasks:
+  - name: Installing NTP
+    apt: name=ntp state=present
+    notify:
+      - restart ntp
+  - name: Copy NTP-Conf
+    template:
+      src: ntp.conf.j2
+      dest: /etc/ntp.conf
+    notify:
+      - restart ntp
+  handlers:
+  - name: restart ntp
+    service: name=ntp state=restarted

@@ -1,0 +1,13 @@
+---
+mysql_service: mysql
+
+mysql_packages:
+  - mysql-server
+  - mysql-client
+  - python-mysqldb
+
+mysql_root: root
+mysql_host: localhost
+
+user: dbuser01
+database: database01
