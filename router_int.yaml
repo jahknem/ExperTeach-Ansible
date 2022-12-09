@@ -1,0 +1,19 @@
+---
+- hosts: router
+  gather_facts: false
+  tasks:
+    - name: Configure INT GI2
+      ios_l3_interfaces:
+        config:
+          - name: GigabitEthernet2
+            ipv4:
+              - address: 192.168.0.135/24
+                secondary: false
+        state: replaced
+    - name: Read config
+      ios_command:
+        commands: show run int gi2
+      register: config_final
+    - name: Output config
+      debug:
+        msg: "{{ config_final.stdout_lines }}"

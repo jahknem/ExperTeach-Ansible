@@ -1,0 +1,3 @@
+{% set www_value = (filepath == '/var/www/https')|ternary(www_1_value,www_2_value) %}
+
+server_port={{ www_value }}

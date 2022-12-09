@@ -1,0 +1,3 @@
+{% set www_value = www_1_value if (filepath == '/var/www/https') else www_2_value %}
+
+server_port={{ www_value }}

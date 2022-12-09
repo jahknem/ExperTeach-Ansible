@@ -1,0 +1,19 @@
+---
+- name: Play 1
+  hosts: server
+  any_errors_fatal: true
+  gather_facts: false
+  tasks:
+    - name: Task 1
+      apt:
+        name: "git"
+        state: present
+      become: true
+
+- name: Play 2
+  hosts: server
+  gather_facts: false
+  tasks:
+    - name: Task 1 aus Play 2
+      debug:
+        msg: "Aufgabe 1 Play 2"

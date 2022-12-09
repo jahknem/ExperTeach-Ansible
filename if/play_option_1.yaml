@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: false
+  vars:
+    www_1_value: '443'
+    www_2_value: '80'
+  tasks:
+    - template:
+        src: template_option_1.j2
+        dest: /tmp/config_1.cfg

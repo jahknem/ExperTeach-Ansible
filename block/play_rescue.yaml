@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Block
+      block:
+        - debug:
+            msg: "Tasks des Blocks"
+          changed_when: yes
+          notify: mein handler
+        - command: /bin/false
+      rescue:
+        - meta: flush_handlers
+  handlers:
+    - name: mein handler
+      debug:
+        msg: "Ich bin der Handler-Task..."

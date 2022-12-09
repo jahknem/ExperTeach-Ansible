@@ -1,0 +1,27 @@
+---
+- hosts: router
+  gather_facts: no
+  tasks:
+    - name: Restart router
+      ios_command:
+        commands:
+          - command: wr
+          - command: reload
+            prompt: "[confirm]"
+            answer: "y"
+    - pause:
+        minutes: 2
+        prompt: "Router startet neu..."
+    - name: Check Router connectivity
+      wait_for:
+        host: "{{ ansible_host }}"
+        port: 22
+        state: started
+        timeout: 60
+    - name: Read config
+      ios_command:
+        commands: show run int gi1
+      register: config_final
+    - name: Output config
+      debug:
+        msg: "{{ config_final.stdout_lines }}"

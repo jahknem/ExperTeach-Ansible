@@ -1,0 +1,18 @@
+- hosts: win
+  tasks:
+  - name: Erstelle neue Gruppe
+    win_group:
+      name: NeueGruppe
+      description: Meine neue Gruppe
+  - name: Erstelle User
+    win_user:
+      name: "{{ item.name }}"
+      password: "{{ item.password }}"
+      groups: NeueGruppe
+      update_password: on_create
+      password_never_expires: yes
+    loop:
+    - name: Benutzer1
+      password: Passwort1
+    - name: Benutzer2
+      password: Passwort2

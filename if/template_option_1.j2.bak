@@ -1,0 +1,7 @@
+{% if filepath == '/var/www/https' %}
+  {% set www_value = www_1_value %}
+{% else %}
+  {% set www_value = www_2_value %}
+{% endif %}
+
+server_port={{ www_value }}

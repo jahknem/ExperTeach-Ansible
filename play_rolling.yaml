@@ -1,0 +1,13 @@
+---
+- name: Serial-Test
+  hosts: server
+  serial: 1
+  gather_facts: no
+
+  tasks:
+    - name: Task 1
+      debug:
+        msg: "Aufgabe 1 wird erledigt..."
+    - name: Task 2
+      debug:
+        msg: "Aufgabe 2 wird erledigt..."

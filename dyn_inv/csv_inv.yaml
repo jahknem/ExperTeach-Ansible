@@ -1,0 +1,4 @@
+---
+plugin: csv_plugin		# Plugin-Name
+path_to_inventory: daten	# Folder of the CSV File
+csv_file: meine_daten.csv	# Name of the CSV File

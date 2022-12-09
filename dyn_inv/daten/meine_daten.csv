@@ -1,0 +1,4 @@
+Device,IP-Adresse,Standort,Wert,Technik
+Linux-1,10.0.100.201,Dietzenbach,datacenter,linux
+Linux-2,10.0.100.202,Dietzenbach,datacenter,linux
+Windows,10.0.100.200,Hamburg,remote,windows

@@ -1,0 +1,8 @@
+---
+- hosts: remote
+  gather_facts: no
+  tasks:
+    - name: Dummy-Task
+      debug:
+        msg: "IP ist: {{ ansible_host }} "
+

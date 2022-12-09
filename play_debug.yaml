@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  debugger: on_failed
+  gather_facts: no
+  vars:
+    file_path: tmp
+  tasks:
+    - name: Task 1
+      file:
+        state: touch
+        dest: /{{ file_path }}/{{ file_name }}

@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  gather_facts: false
+  vars:
+    www_1_value: '443'
+    www_2_value: '80'
+    filepath: /var/www/https
+  tasks:
+    - set_fact:
+        www_value: "{{ www_1_value if (filepath == '/var/www/https') else www_2_value }}"
+    - template:
+        src: template_option_2.j2
+        dest: /tmp/config_2.cfg

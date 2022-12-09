@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: Task vor dem Block
+      debug:
+        msg: "Ich bin ein normaler Task"
+    - name: Ich bin ein Block
+      block:
+        - name: "Block Task 1"
+          command: /bin/false
+        - name: "Block Task 2"
+          debug:
+            msg: "Führe ebenfalls etwas aus..."
+      when: ansible_facts['distribution'] == 'Ubuntu'
+      rescue:
+        - debug:
+            msg: "Versuche zu retten..."
+    - name: Task nach dem Block
+      debug:
+        msg: "Ich bin ein Task nach dem Block..."
